@@ -1,0 +1,122 @@
+Maven Hands-On Practice – dependency-injection Project
+-----------------------------------------------------
+
+Objective:
+----------
+The goal of this project is to gain hands-on experience with Maven by:
+- Adding an external dependency from Maven Central
+- Understanding Maven build lifecycle phases
+- Executing Maven commands manually from the terminal
+- Generating and running a Spring Boot executable (FAT) JAR
+
+-----------------------------------------------------
+
+1. Adding External Maven Dependency
+----------------------------------
+
+• Searched for external dependency using keyword:
+  "opencsv maven"
+
+• Selected dependency:
+  Group ID : com.opencsv
+  Artifact ID : opencsv
+  Version : 5.11.1
+
+• Added dependency in pom.xml:
+
+<dependency>
+    <groupId>com.opencsv</groupId>
+    <artifactId>opencsv</artifactId>
+    <version>5.11.1</version>
+</dependency>
+
+• Synced Maven dependencies after adding the entry.
+• Maven automatically downloaded required JARs from Maven Central.
+
+-----------------------------------------------------
+
+2. Understanding Maven Build Lifecycle
+--------------------------------------
+
+Referred Official Documentation:
+https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
+
+Maven has three main lifecycles:
+1. clean
+2. default (build)
+3. site
+
+This project focuses on the DEFAULT (build) lifecycle.
+
+-----------------------------------------------------
+
+3. Maven Build Lifecycle Phases Practiced
+-----------------------------------------
+
+Executed Maven Wrapper commands manually from console:
+
+1. mvnw validate
+   - Validates project structure
+   - Checks pom.xml correctness
+
+2. mvnw compile
+   - Compiles Java source code
+   - Downloads dependencies if missing
+
+3. mvnw test
+   - Runs unit tests
+   - Uses default test framework
+
+4. mvnw package
+   - Packages application into a JAR file
+   - Generates executable Spring Boot FAT JAR
+
+-----------------------------------------------------
+
+4. Generated Output
+-------------------
+
+After running:
+mvnw package
+
+The following file was generated:
+target/<project-name>-0.0.1-SNAPSHOT.jar
+
+This is a FAT (Executable) JAR containing:
+- Application classes
+- Dependencies
+- Embedded server (Tomcat)
+
+-----------------------------------------------------
+
+5. Running the Application from JAR
+-----------------------------------
+
+Command used:
+java -jar target/<project-name>-0.0.1-SNAPSHOT.jar
+
+Outcome:
+- Application started successfully
+- Verified that application runs independently without IDE
+
+-----------------------------------------------------
+
+6. Key Learnings
+----------------
+
+• How Maven manages dependencies internally
+• Difference between IDE Run and Maven lifecycle execution
+• Importance of pom.xml in project configuration
+• Understanding of build phases used in real projects
+• How Spring Boot creates executable JARs for deployment
+
+-----------------------------------------------------
+
+7. Interview Explanation (Summary)
+----------------------------------
+
+In this project, I practiced Maven by adding an external dependency
+(OpenCSV), understanding the Maven build lifecycle, and executing
+build phases manually from the command line. I also generated and ran
+the Spring Boot executable JAR, which helped me understand how real-world
+applications are built and packaged using Maven.
