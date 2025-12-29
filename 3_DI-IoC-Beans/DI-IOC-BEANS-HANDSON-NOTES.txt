@@ -1,0 +1,185 @@
+Spring Boot Hands-On – Dependency Injection, IoC & Beans
+------------------------------------------------------
+
+Project Name:
+-------------
+DI-IoC-Beans
+
+Objective:
+----------
+The objective of this project is to practically understand:
+- Dependency Injection (DI)
+- Inversion of Control (IoC)
+- Spring Beans
+- How Spring Boot creates and manages objects internally
+
+------------------------------------------------------
+
+1. What is Dependency Injection (DI)?
+------------------------------------
+
+Dependency Injection is a design pattern that tells:
+- HOW to write loosely coupled code
+- Dependencies should NOT be created by the class itself
+- Dependencies should be provided from outside
+
+In this project:
+- Laptop depends on Hardisk and Ram
+- These dependencies are injected automatically by Spring
+
+------------------------------------------------------
+
+2. What is Inversion of Control (IoC)?
+-------------------------------------
+
+IoC means:
+- Control of object creation is inverted
+- Developer does NOT create objects manually using 'new'
+- Spring IoC Container creates, manages, and injects objects
+
+In this project:
+- Spring Boot creates IoC container at runtime
+- All required objects (Beans) are managed inside the JVM
+
+------------------------------------------------------
+
+3. Spring Boot Application Startup Flow
+---------------------------------------
+
+@SpringBootApplication
+public class DiIoCBeansApplication
+{
+    public static void main(String[] args)
+    {
+        SpringApplication.run(DiIoCBeansApplication.class, args);
+    }
+}
+
+SpringApplication.run() performs:
+1) Starts embedded Apache Tomcat server
+2) Creates IoC Container
+3) Scans components and creates Beans
+4) Performs dependency injection
+
+------------------------------------------------------
+
+4. Bean Creation in This Project
+--------------------------------
+
+Classes:
+- Laptop
+- Hardisk
+- Ram
+
+These classes are marked as Spring components using annotations
+(@RestController / @Component).
+
+Spring automatically:
+- Creates objects
+- Stores them as Beans
+- Injects dependencies where required
+
+------------------------------------------------------
+
+5. Field Injection Using @Autowired
+-----------------------------------
+
+@RestController
+public class Laptop
+{
+    @Autowired
+    Hardisk hobj;
+
+    @Autowired
+    Ram robj;
+
+    @GetMapping("Laptop")
+    public String LaptopInformation()
+    {
+        String h = hobj.getHardisk();
+        String r = robj.getRam();
+
+        return "Laptop Configuration : " + h + " & " + r;
+    }
+}
+
+Explanation:
+------------
+- @Autowired tells Spring to inject the required Bean automatically
+- Laptop does not create Hardisk or Ram objects manually
+- Spring resolves and injects dependencies at runtime
+
+------------------------------------------------------
+
+6. Tight Coupling vs Loose Coupling
+----------------------------------
+
+Tight Coupling:
+--------------
+- Class depends on a specific implementation
+- Changes in one class affect others
+
+Example:
+"I want only Amul Butter and Talegaon Potato"
+
+Loose Coupling:
+---------------
+- Class depends on abstraction or related object
+- Implementation can change without affecting code
+
+Example:
+"I want any brand Butter and any Potato"
+
+Spring DI promotes LOOSE COUPLING.
+
+------------------------------------------------------
+
+7. Real-Life Analogy
+-------------------
+
+Laptop = PavBhaji Dish
+Hardisk, Ram = Ingredients (Butter, Potato, Spices)
+
+Chef (Spring Container):
+- Collects ingredients
+- Prepares the dish
+- Serves final output
+
+Developer:
+- Only defines what is required
+- Does not manage object creation
+
+------------------------------------------------------
+
+8. REST API Execution
+--------------------
+
+Endpoint:
+---------
+GET /Laptop
+
+Output Example:
+---------------
+Laptop Configuration : SSD 512GB & 16GB RAM
+
+------------------------------------------------------
+
+9. Key Learnings
+----------------
+
+• Understanding of Dependency Injection
+• Role of IoC Container in Spring Boot
+• How Beans are created and managed
+• Usage of @Autowired for Field Injection
+• How Spring Boot reduces tight coupling
+• Practical understanding of REST Controller with DI
+
+------------------------------------------------------
+
+10. Interview Summary
+--------------------
+
+This project helped me understand how Spring Boot manages objects using
+IoC and injects dependencies using Dependency Injection. I implemented
+field injection using @Autowired and exposed a REST endpoint to verify
+the injected components at runtime.
