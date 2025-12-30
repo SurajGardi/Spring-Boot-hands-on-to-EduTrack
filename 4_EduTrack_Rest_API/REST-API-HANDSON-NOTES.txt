@@ -1,0 +1,206 @@
+Spring Boot Hands-On – REST API Development
+------------------------------------------
+
+Project Name:
+-------------
+4_EduTrack_Rest_API
+
+Objective:
+----------
+The objective of this project is to understand how to:
+- Design REST APIs using Spring Boot
+- Create REST controllers
+- Handle GET and POST HTTP methods
+- Exchange data using JSON
+- Simulate a database using in-memory data structures
+- Test REST APIs using Postman
+
+----------------------------------------------------------
+
+1. Project Structure Overview
+-----------------------------
+
+Packages used:
+- controller  → Handles REST API endpoints
+- Entity      → Represents data model (virtual database)
+- main class  → Starts Spring Boot application
+
+This follows standard Spring Boot layered architecture.
+
+----------------------------------------------------------
+
+2. Entity Layer – BatchEntry
+---------------------------
+
+Class:
+------
+BatchEntry.java
+
+Purpose:
+--------
+- Acts as a data model
+- Represents a Batch record
+- Simulates a database entity
+
+Fields:
+-------
+- id    (long)
+- name  (String)
+- fees  (int)
+
+Features:
+---------
+- Private fields (Encapsulation)
+- Public getters and setters
+- Acts as a virtual database record
+
+Note:
+-----
+Getters and setters were generated using:
+Alt + Insert → Select Getters and Setters => ctrl + select required fields for getter setter
+
+----------------------------------------------------------
+
+3. Controller Layer – BatchEntryController
+-----------------------------------------
+
+Class:
+------
+BatchEntryController.java
+
+Annotations Used:
+-----------------
+@RestController
+@RequestMapping("/batches")
+
+Responsibilities:
+-----------------
+- Exposes REST endpoints
+- Handles HTTP requests
+- Manages BatchEntry objects
+
+Internal Storage:
+-----------------
+Map<Long, BatchEntry> batchentries = new HashMap<>();
+
+This Map acts as an in-memory database.
+
+----------------------------------------------------------
+
+4. GET API – Fetch All Batches
+------------------------------
+
+Endpoint:
+---------
+GET /batches
+
+Method:
+-------
+@GetMapping
+
+Functionality:
+---------------
+- Retrieves all batch entries
+- Converts Map values into a List
+- Returns data in JSON format
+
+Use Case:
+---------
+Used to view all inserted batch records.
+
+----------------------------------------------------------
+
+5. POST API – Create Batch Entry
+--------------------------------
+
+Endpoint:
+---------
+POST /batches
+
+Method:
+-------
+@PostMapping
+
+Input:
+------
+JSON data passed in request body
+
+Example:
+--------
+{
+  "id": 1,
+  "name": "LB++",
+  "fees": 35000
+}
+
+Processing:
+-----------
+- JSON is converted to BatchEntry object
+- Object is stored in HashMap using id as key
+- Returns boolean status
+
+----------------------------------------------------------
+
+6. Health Check API
+------------------
+
+Class:
+------
+HealthCheck.java
+
+Endpoint:
+---------
+GET /HealthCheck
+
+Purpose:
+--------
+- Confirms application is running
+- Used as a basic server health check
+
+Response:
+---------
+"Everything is Ok"
+
+----------------------------------------------------------
+
+7. API Testing Using Postman
+----------------------------
+
+Steps:
+------
+1. Start Spring Boot application
+2. Open Postman
+3. POST data using:
+   http://localhost:8080/batches
+4. Switch to GET method
+5. Fetch inserted data
+
+Outcome:
+--------
+Verified REST APIs working correctly.
+
+----------------------------------------------------------
+
+8. Key Concepts Learned
+----------------------
+
+• REST API architecture
+• @RestController usage
+• @GetMapping and @PostMapping
+• @RequestBody for JSON input
+• JSON to Java object conversion
+• In-memory data handling using Map
+• API testing using Postman
+• Separation of Entity and Controller layers
+
+----------------------------------------------------------
+
+9. Interview Summary
+--------------------
+
+In this project, I built REST APIs using Spring Boot.
+I created GET and POST endpoints to manage batch data,
+used an entity class to represent data, simulated a
+database using HashMap, and tested APIs using Postman.
+This project helped me understand RESTful services
+and client-server communication.
