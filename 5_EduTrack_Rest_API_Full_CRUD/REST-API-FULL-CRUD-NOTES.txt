@@ -1,0 +1,284 @@
+Spring Boot Hands-On – Full REST API CRUD Operations
+---------------------------------------------------
+
+Project Name:
+-------------
+5_EduTrack_Rest_API_Full_CRUD
+
+Objective:
+----------
+The objective of this project is to design and implement
+complete RESTful APIs using Spring Boot by covering:
+- All CRUD operations
+- Path variables
+- Request body handling
+- Custom query-based endpoints
+- In-memory data storage
+- API testing using Postman
+
+---------------------------------------------------
+
+1. REST Controller Overview
+---------------------------
+
+Controller Class:
+-----------------
+BatchEntryController
+
+Base URL Mapping:
+-----------------
+@RequestMapping("/batches")
+
+All endpoints are accessed using:
+http://localhost:8080/batches
+
+---------------------------------------------------
+
+2. In-Memory Data Storage
+------------------------
+
+Data Structure Used:
+--------------------
+Map<Long, BatchEntry> batchentries = new HashMap<>();
+
+Purpose:
+--------
+- Simulates database behavior
+- Key   → Batch ID
+- Value → BatchEntry object
+
+---------------------------------------------------
+
+3. CREATE Operation (POST)
+--------------------------
+
+Endpoint:
+---------
+POST /batches
+
+Purpose:
+--------
+- Adds a new batch entry
+
+Annotation:
+-----------
+@PostMapping
+
+Input (JSON):
+-------------
+{
+  "id": 1,
+  "name": "PPA",
+  "fees": 25000
+}
+
+Logic:
+------
+- JSON converted to BatchEntry object using @RequestBody
+- Entry stored in HashMap
+
+---------------------------------------------------
+
+4. READ Operations (GET)
+------------------------
+
+4.1 Get All Batches
+-------------------
+Endpoint:
+GET /batches
+
+SQL Equivalent:
+---------------
+SELECT * FROM batches;
+
+---------------------------------------------------
+
+4.2 Get Batch by ID
+-------------------
+Endpoint:
+GET /batches/id/{myid}
+
+Example:
+--------
+GET /batches/id/1
+
+SQL Equivalent:
+---------------
+SELECT * FROM batches WHERE id = 1;
+
+Uses:
+-----
+@PathVariable
+
+---------------------------------------------------
+
+4.3 Get Batch by Name
+---------------------
+Endpoint:
+GET /batches/name/{name}
+
+Example:
+--------
+GET /batches/name/PPA
+
+SQL Equivalent:
+---------------
+SELECT * FROM batches WHERE name = 'PPA';
+
+Logic:
+------
+- Iterates over Map values
+- Matches batch name
+
+---------------------------------------------------
+
+4.4 Get Batch with Minimum Fees
+--------------------------------
+Endpoint:
+GET /batches/minimum
+
+SQL Equivalent:
+---------------
+SELECT * FROM batches ORDER BY fees ASC LIMIT 1;
+
+Logic:
+------
+- Iterates through entries
+- Tracks minimum fee batch
+
+---------------------------------------------------
+
+4.5 Get Batch with Maximum Fees
+--------------------------------
+Endpoint:
+GET /batches/maximum
+
+SQL Equivalent:
+---------------
+SELECT * FROM batches ORDER BY fees DESC LIMIT 1;
+
+Logic:
+------
+- Iterates through entries
+- Tracks maximum fee batch
+
+---------------------------------------------------
+
+5. UPDATE Operation (PUT)
+-------------------------
+
+Endpoint:
+---------
+PUT /batches/id/{myid}
+
+Purpose:
+--------
+- Updates existing batch entry
+
+SQL Equivalent:
+---------------
+UPDATE batches SET values WHERE id = 1;
+
+Logic:
+------
+- Uses Map.put() to replace entry
+
+---------------------------------------------------
+
+6. DELETE Operation (DELETE)
+----------------------------
+
+Endpoint:
+---------
+DELETE /batches/id/{myid}
+
+Purpose:
+--------
+- Deletes batch entry by ID
+
+SQL Equivalent:
+---------------
+DELETE FROM batches WHERE id = 1;
+
+---------------------------------------------------
+
+7. Important Spring Annotations Used
+-----------------------------------
+
+@RestController   → Defines REST controller
+@RequestMapping  → Base URL mapping
+@GetMapping      → Handles HTTP GET
+@PostMapping     → Handles HTTP POST
+@PutMapping      → Handles HTTP PUT
+@DeleteMapping   → Handles HTTP DELETE
+@PathVariable    → Extracts data from URL
+@RequestBody     → Converts JSON to Java object
+
+---------------------------------------------------
+
+8. Postman Testing Guide (User Perspective)
+-------------------------------------------
+
+Base URL:
+---------
+http://localhost:8080/batches
+
+Step 1: Create Batch
+--------------------
+POST /batches
+Body → raw → JSON
+
+Step 2: View All Batches
+------------------------
+GET /batches
+
+Step 3: View Batch by ID
+------------------------
+GET /batches/id/1
+
+Step 4: View Batch by Name
+--------------------------
+GET /batches/name/PPA
+
+Step 5: View Batch with Minimum Fees
+------------------------------------
+GET /batches/minimum
+
+Step 6: View Batch with Maximum Fees
+------------------------------------
+GET /batches/maximum
+
+Step 7: Update Batch
+--------------------
+PUT /batches/id/1
+Body → raw → JSON
+
+Step 8: Delete Batch
+--------------------
+DELETE /batches/id/1
+
+---------------------------------------------------
+
+9. Key Learnings
+----------------
+
+• Complete CRUD operation flow
+• RESTful URL design
+• Mapping HTTP methods to CRUD
+• Practical use of @PathVariable and @RequestBody
+• Designing query-based endpoints
+• Using Map as temporary database
+• API testing using Postman
+• Understanding backend request lifecycle
+
+---------------------------------------------------
+
+10. Interview Summary
+---------------------
+
+In this project, I implemented a complete REST API using
+Spring Boot that supports CRUD operations and custom
+query-based endpoints. I used in-memory storage to
+simulate database behavior and tested all APIs using
+Postman. This project strengthened my understanding
+of REST architecture and HTTP methods.
