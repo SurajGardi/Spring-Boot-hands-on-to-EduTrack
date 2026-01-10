@@ -1,0 +1,221 @@
+EduTrack Student Portal – Full Stack Backend with MongoDB
+---------------------------------------------------------
+
+Project Name:
+-------------
+6_EduTrack_Student_Portal_FullStack
+
+Objective:
+----------
+The objective of this project is to convert the previous EduTrack REST API
+from in-memory storage to a real persistent backend using MongoDB,
+along with a clean multi-layered architecture:
+
+Controller Layer → Service Layer → Repository Layer → Database
+
+------------------------------------------------------------
+
+1. Introduction of Multi-Layer Architecture
+-------------------------------------------
+
+Layers Implemented:
+-------------------
+1) Controller Layer
+2) Service Layer
+3) Repository Layer
+4) MongoDB Database
+
+Advantages:
+-----------
+✔ Separation of concerns
+✔ Cleaner backend design
+✔ Scalable and maintainable
+✔ Reusable business logic
+✔ Database independent
+
+------------------------------------------------------------
+
+2. Repository Layer (MongoDB Integration)
+-----------------------------------------
+
+Repository File:
+----------------
+BatchEntryRepository.java :contentReference[oaicite:0]{index=0}
+
+Implementation:
+---------------
+extends MongoRepository<BatchEntry, ObjectId>
+
+MongoRepository provides built-in CRUD:
+✔ save()
+✔ findById()
+✔ findAll()
+✔ deleteById()
+
+No SQL queries are required because of Spring Data abstraction.
+
+------------------------------------------------------------
+
+3. Service Layer (Business Logic)
+---------------------------------
+
+Service File:
+-------------
+BatchEntryService.java :contentReference[oaicite:1]{index=1}
+
+Responsibilities:
+-----------------
+✔ Act as middle layer between controller & repository
+✔ Hold API related business logic
+✔ Validations (modifiable)
+✔ Reusable methods for Client UI
+
+Exposed Methods:
+----------------
+- saveEntry()
+- getAll()
+- findById()
+- deleteByID()
+
+------------------------------------------------------------
+
+4. Entity Layer (MongoDB Document)
+----------------------------------
+
+Entity File:
+------------
+BatchEntry.java :contentReference[oaicite:2]{index=2}
+
+Mapped Using:
+-------------
+@Document(collection = "BatchDetails")
+
+Fields:
+-------
+• ObjectId id
+• String name
+• int fees
+
+ObjectId replaces long IDs (very common in MongoDB)
+
+------------------------------------------------------------
+
+5. Controller Layer (REST API)
+------------------------------
+
+Controller File:
+----------------
+BatchEntryController.java :contentReference[oaicite:3]{index=3}
+
+Responsibilities:
+-----------------
+✔ Accept HTTP requests
+✔ Invoke service layer
+✔ Perform CRUD operations
+
+Supported Endpoints:
+--------------------
+METHOD   URL                         OPERATION
+GET      /batches                    Fetch all batches
+GET      /batches/id/{id}            Fetch by ObjectId
+POST     /batches                    Insert new batch
+PUT      /batches/id/{id}            Update existing batch
+DELETE   /batches/id/{id}            Delete existing batch
+
+------------------------------------------------------------
+
+6. MongoDB Usage
+----------------
+
+Database:
+---------
+NoSQL (Document-based)
+
+Advantages:
+-----------
+✔ Schema flexible
+✔ JSON-like storage
+✔ Fast reads
+✔ Good for full-stack projects
+
+Collection:
+-----------
+BatchDetails
+
+Document Example:
+-----------------
+{
+  "_id": ObjectId("xyz123"),
+  "name": "PPA",
+  "fees": 25000
+}
+
+------------------------------------------------------------
+
+7. Postman Flow (User Perspective)
+----------------------------------
+
+Base URL:
+---------
+http://localhost:8080/batches
+
+Step 1: Insert Batch
+--------------------
+POST /batches
+
+Body (JSON):
+{
+  "name": "LB++",
+  "fees": 35000
+}
+
+Response:
+"Document inserted Successfully"
+
+Step 2: View All Batches
+------------------------
+GET /batches
+
+Step 3: Fetch by ID
+-------------------
+GET /batches/id/{ObjectId}
+
+Step 4: Update Entry
+--------------------
+PUT /batches/id/{ObjectId}
+
+Body:
+{
+  "name": "LB++ Updated",
+  "fees": 45000
+}
+
+Step 5: Delete Entry
+--------------------
+DELETE /batches/id/{ObjectId}
+
+------------------------------------------------------------
+
+8. Key Learnings
+----------------
+
+✔ Introduction to MongoDB in Spring Boot
+✔ Full-layer backend system
+✔ Loose coupling using service layer
+✔ Repository abstraction using Spring Data
+✔ Use of ObjectId for document identification
+✔ JSON-based data exchange
+✔ Postman client usage
+✔ Production-style architecture foundation
+
+------------------------------------------------------------
+
+9. Interview Summary
+--------------------
+
+In this project, I converted my EduTrack API from in-memory storage
+to a real backend with MongoDB using multi-layered architecture.
+I implemented Repository, Service, Entity, and Controller layers,
+and tested the system using Postman. This is the foundation of a
+full-stack application where a Java client or frontend can consume
+the APIs.
